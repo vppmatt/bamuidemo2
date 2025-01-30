@@ -40,7 +40,7 @@ export class DataService {
   }
 
   getAccessRecordsForTodayForBuilding(building : string)  : Observable<Array<AccessRecord>> {
-    const today = new Date().toISOString().substring(0,10).replaceAll("-","");
+    const today = "20250217" // new Date().toISOString().substring(0,10).replaceAll("-","");
     
     return this.getAccessRecords(today).pipe( map(originalArray => originalArray.filter(it => it.building === building)) );
 

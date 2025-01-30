@@ -26,10 +26,13 @@ export class UserListComponent implements OnInit, OnDestroy{
   ) {}
 
   ngOnInit(): void {
-    this.dataService.getUsers().subscribe( data => {this.users = data;
-      this.changeSortOrder();
-    }
-     );
+    // this.dataService.getUsers().subscribe( data => {this.users = data;
+    //   this.changeSortOrder();
+    // }
+    //  );
+
+    this.users = this.route.snapshot.data["users"];
+
     this.sortSubscription = this.userSortService.sortEvent
       .subscribe( type => {
         this.sortType = type;

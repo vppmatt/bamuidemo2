@@ -37,8 +37,40 @@ export class WhoIsInTheBuildingComponent implements OnInit {
           this.loadData();
       });
 
-      this.dataService.getBuildings().subscribe( data => this.buildings = data);
+      // check if buildings is in cache and is less than 2 mins old
+      const blf = sessionStorage.getItem("buildings-last-fetch");
+      if (blf) {
+        const seconds = (new Date().getTime() - +blf) / 1000;
+        if (seconds > 120) {
+          console.log("data is more than 2 mins old")
+          this.loadBuildingsFromServer();
+        }
+        else {
+          console.log("data is less than 2 mins old")
+          this.loadBuildingsFromCache();
+        }
 
+      }
+      else {
+        this.loadBuildingsFromServer();
+      }
+
+  }
+
+  loadBuildingsFromServer () {
+    console.log("getting data from server")
+    this.dataService.getBuildings().subscribe( data => {
+      this.buildings = data;
+      sessionStorage.setItem( "buildings" , JSON.stringify(this.buildings));
+      sessionStorage.setItem("buildings-last-fetch", new Date().getTime().toString());
+      console.log("buildings saved to session storage");
+    });
+  }
+
+  loadBuildingsFromCache () {
+    console.log("getting data from cache")
+      const buildings = "" + sessionStorage.getItem("buildings");
+      this.buildings = JSON.parse(buildings);
   }
 
   handleChangeBuilding(event : Event) {

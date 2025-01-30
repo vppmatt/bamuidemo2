@@ -1,0 +1,24 @@
+<h2>Edit user: id-placeholder</h2>
+
+<form [formGroup]="userForm" (submit)="handleSubmit()" >
+    <div class="form-group row my-3">
+        <label for="id" class="col-sm-2 col-form-label">Id</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" id="id" readonly formControlName="id"  >
+        </div>
+     </div>
+     <div class="form-group row my-3">
+        <label for="firstname"class="col-sm-2 col-form-label">First name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="firstname" formControlName="firstname">
+        </div>
+      </div>
+      <div class="form-group row my-3">
+        <label for="surname"class="col-sm-2 col-form-label">Surname</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="surname" formControlName="surname">
+        </div>
+      </div>
+    <button type="submit" class="btn btn-primary my-3">Submit</button>
+    
+</form>

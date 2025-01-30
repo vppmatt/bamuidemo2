@@ -40,7 +40,7 @@ export class DataService {
   }
 
   getAccessRecordsForTodayForBuilding(building : string)  : Observable<Array<AccessRecord>> {
-    const today = "20250217" // new Date().toISOString().substring(0,10).replaceAll("-","");
+    const today = new Date().toISOString().substring(0,10).replaceAll("-","");
     
     return this.getAccessRecords(today).pipe( map(originalArray => originalArray.filter(it => it.building === building)) );
 
@@ -48,6 +48,10 @@ export class DataService {
 
   getBuildings() : Observable<Array<Building>> {
     return this.http.get<Array<Building>>(`${this.serverUrl}/api/building`);
+  }
+
+  getUser(id : number) : Observable<User> {
+    return this.http.get<User>(`${this.serverUrl}/api/user/${id}`)
   }
 
 }

@@ -14,9 +14,18 @@ export class UserSortComponent {
   constructor(private userSortService : UserSortService,
     private router : Router
   ) {}
+
+  sortType = 1;
   
+  dummyFunction(value : number) {
+    //just for testing!
+    return "hello";
+  }
+
   handleClick(type : number) {
     //this.userSortService.receiveSortRequest(type);
+    this.sortType = type;
+    this.dummyFunction(type);
     this.router.navigate(["/users"], {queryParams : {sortType : type}});
   }
 

@@ -1,7 +1,7 @@
 <h1>Who is in the Building</h1>
 
 <div class="my-3">Select building : 
-    <select (change) = "handleChangeBuilding($event)" >
+    <select (change) = "handleChangeBuilding($event)" [(ngModel)]="building"  >
         <option value = "">---select---</option>
         <option *ngFor="let building of buildings" [value]="building.name">{{building.name}}</option>
     </select>

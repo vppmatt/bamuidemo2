@@ -6,6 +6,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { UserPrefetchService } from './user-prefetch.service';
+import { LoginComponent } from './login/login.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 export const routes: Routes = [
     {path : "", component: HomePageComponent},
@@ -13,5 +15,7 @@ export const routes: Routes = [
     {path : "emergency/:building", component:WhoIsInTheBuildingComponent},
     {path: "access", component: AccessLogsComponent},
     {path: "users", resolve : {users : UserPrefetchService} , component: UserPageComponent},
+    {path : "login", component : LoginComponent},
+    {path : "user/:id", component : UserEditComponent},
     {path : "**", component : PageNotFoundComponent}
 ];

@@ -4,11 +4,12 @@ import { AccessRecord } from '../../model/AccessRecord';
 import { NgFor } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Building } from '../../model/Building';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-who-is-in-the-building',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, FormsModule],
   templateUrl: './who-is-in-the-building.component.html',
   styleUrl: './who-is-in-the-building.component.css'
 })

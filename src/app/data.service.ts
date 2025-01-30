@@ -4,6 +4,7 @@ import { User } from '../model/User';
 import { map, Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { AccessRecord, ServerAccessRecord } from '../model/AccessRecord';
+import { Building } from '../model/Building';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,10 @@ export class DataService {
     
     return this.getAccessRecords(today).pipe( map(originalArray => originalArray.filter(it => it.building === building)) );
 
+  }
+
+  getBuildings() : Observable<Array<Building>> {
+    return this.http.get<Array<Building>>(`${this.serverUrl}/api/building`);
   }
 
 }

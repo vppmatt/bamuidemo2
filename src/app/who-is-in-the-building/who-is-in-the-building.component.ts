@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { AccessRecord } from '../../model/AccessRecord';
 import { NgFor } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Building } from '../../model/Building';
 
 @Component({
   selector: 'app-who-is-in-the-building',
@@ -15,10 +16,13 @@ export class WhoIsInTheBuildingComponent implements OnInit {
 
   accessRecords : AccessRecord[] = [];
 
-  building = "Adel Square";
+  buildings : Building[] = [];
+
+  building = "";
 
   constructor(private dataService : DataService,
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +34,13 @@ export class WhoIsInTheBuildingComponent implements OnInit {
           this.loadData();
       });
 
+      this.dataService.getBuildings().subscribe( data => this.buildings = data);
+
+  }
+
+  handleChangeBuilding(event : Event) {
+    this.building = (event.target as HTMLSelectElement).value;
+    this.router.navigate(["/emergency",this.building])
   }
 
   loadData() {

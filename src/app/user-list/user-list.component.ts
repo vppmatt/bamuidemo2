@@ -4,6 +4,7 @@ import { User } from '../../model/User';
 import { NgFor } from '@angular/common';
 import { UserSortService } from '../user-sort.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,9 @@ export class UserListComponent implements OnInit, OnDestroy{
   sortSubscription? : Subscription;
   sortType : number =1;
 
-  constructor(private dataService: DataService, private userSortService : UserSortService) {}
+  constructor(private dataService: DataService, private userSortService : UserSortService,
+    private route : ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.dataService.getUsers().subscribe( data => {this.users = data;
@@ -31,6 +34,13 @@ export class UserListComponent implements OnInit, OnDestroy{
       .subscribe( type => {
         this.sortType = type;
         this.changeSortOrder()})
+
+    this.route.queryParams.subscribe(params => {
+      if (params["sortType"]) {
+        this.sortType  = +params["sortType"];
+        this.changeSortOrder();
+      }
+    })
   }
 
   changeSortOrder( ) {

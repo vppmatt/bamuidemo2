@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserSortService } from '../user-sort.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-sort',
@@ -10,10 +11,13 @@ import { UserSortService } from '../user-sort.service';
 })
 export class UserSortComponent {
 
-  constructor(private userSortService : UserSortService) {}
+  constructor(private userSortService : UserSortService,
+    private router : Router
+  ) {}
   
   handleClick(type : number) {
-    this.userSortService.receiveSortRequest(type);
+    //this.userSortService.receiveSortRequest(type);
+    this.router.navigate(["/users"], {queryParams : {sortType : type}});
   }
 
 }

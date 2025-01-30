@@ -1,5 +1,13 @@
 <h1>Who is in the Building</h1>
 
+<div class="my-3">Select building : 
+    <select (change) = "handleChangeBuilding($event)" >
+        <option value = "">---select---</option>
+        <option *ngFor="let building of buildings" [value]="building.name">{{building.name}}</option>
+    </select>
+</div>
+
+
 <h2>Building: {{building}}</h2>
 
 <table class="table">

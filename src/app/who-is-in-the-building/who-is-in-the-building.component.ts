@@ -20,6 +20,9 @@ export class WhoIsInTheBuildingComponent implements OnInit {
 
   building = "";
 
+  displayMessage : string = "";
+  displayClass : string = "";
+
   constructor(private dataService : DataService,
     private route : ActivatedRoute,
     private router : Router
@@ -44,13 +47,28 @@ export class WhoIsInTheBuildingComponent implements OnInit {
   }
 
   loadData() {
-    this.dataService
-    .getAccessRecordsForTodayForBuilding(this.building).subscribe(data => {
-    
-      const lastRecordForEachUser = new Map<number, AccessRecord>();
-      data.forEach(it => lastRecordForEachUser.set(it.user.id, it));
+    this.displayMessage = "loading... please wait"
+    this.displayClass = "alert alert-info"
+    this.accessRecords  = [];
 
-      this.accessRecords = Array.from(lastRecordForEachUser.values()).filter(it => it.status)
-    });
+    this.dataService.getAccessRecordsForTodayForBuilding(this.building)
+        .subscribe({
+          next : data => {
+            this.displayClass = "";
+            this.displayMessage = "";
+            const lastRecordForEachUser = new Map<number, AccessRecord>();
+            data.forEach(it => lastRecordForEachUser.set(it.user.id, it));
+            this.accessRecords = Array.from(lastRecordForEachUser.values()).filter(it => it.status)
+          },
+          error : error => {
+            console.log("error", error)
+                this.displayMessage = "something went wrong"
+                this.displayClass = "alert alert-danger"
+          },
+          complete: () => {}
+
+        });
+
+
   }
 }
